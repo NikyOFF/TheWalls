@@ -32,7 +32,10 @@ public class TeamSelectorItemEvents implements Listener {
             {
                 if (itemStack.getItemMeta().getDisplayName().equals(TeamSelector.TeamSelectorItemName))
                 {
-                    player.openInventory(new TeamsInventory().gui);
+                    if (!Main.Singleton.RoundManager.Started)
+                    {
+                        player.openInventory(new TeamsInventory().gui);
+                    }
                 }
             }
 
@@ -61,19 +64,22 @@ public class TeamSelectorItemEvents implements Listener {
 
         if (inventoryView.getTitle().equals(TeamsInventory.TeamGuiName))
         {
-            ItemStack itemStack = event.getCurrentItem();
-
-            if (itemStack != null)
+            if (!Main.Singleton.RoundManager.Started)
             {
-                String itemDisplayName = itemStack.getItemMeta().getDisplayName();
-                TheWallTeam theWallTeam = Main.Singleton.TeamManager.GetByDisplayName(itemDisplayName);
+                ItemStack itemStack = event.getCurrentItem();
 
-                TheWalls.SendConsoleTheWallsMessage(ChatColor.DARK_AQUA, "itemDisplayName: " + itemDisplayName);
-
-                if (theWallTeam != null)
+                if (itemStack != null)
                 {
-                    theWallTeam.Join(player.getName());
-                    TheWalls.SendTheWallsMessage(player, ChatColor.GREEN, "Вы успешно вступили в команду " + itemDisplayName);
+                    String itemDisplayName = itemStack.getItemMeta().getDisplayName();
+                    TheWallTeam theWallTeam = Main.Singleton.TeamManager.GetByDisplayName(itemDisplayName);
+
+                    TheWalls.SendConsoleTheWallsMessage(ChatColor.DARK_AQUA, "itemDisplayName: " + itemDisplayName);
+
+                    if (theWallTeam != null)
+                    {
+                        theWallTeam.Join(player.getName());
+                        TheWalls.SendTheWallsMessage(player, ChatColor.GREEN, "Вы успешно вступили в команду " + itemDisplayName);
+                    }
                 }
             }
 

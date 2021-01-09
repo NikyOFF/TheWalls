@@ -52,7 +52,7 @@ public class TheWallTeam {
             throw new CommandException("Попытка проверить команду вне игры!");
         }
 
-        if (this.PlayersCount == 0 || this.LivePlayersCount == 0)
+        if (!this.IsLost && (this.PlayersCount == 0 || this.LivePlayersCount == 0 || this.SpawnPoint == null))
         {
             this.IsLost = true;
             Main.Singleton.TeamManager.LostTeamCount++;
@@ -79,6 +79,7 @@ public class TheWallTeam {
 
         if (this.SpawnPoint == null)
         {
+            this.Check();
             TheWalls.SendConsoleTheWallsMessage(ChatColor.AQUA, "on spawn return because spawn point is null");
             return;
         }

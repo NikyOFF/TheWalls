@@ -151,6 +151,7 @@ public class TeamManager {
                 if (!_theWallTeam.IsLost)
                 {
                     Main.Singleton.RoundManager.End(_theWallTeam);
+                    break;
                 }
             }
         }

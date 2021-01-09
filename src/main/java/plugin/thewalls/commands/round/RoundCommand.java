@@ -91,6 +91,42 @@ public class RoundCommand implements CommandExecutor {
                          return true;
                     //endregion
 
+                    //region setMaxBorderSize
+                    case "setMaxBorderSize":
+                        if (!sender.hasPermission(String.valueOf(Permission.DEFAULT_PERMISSION)))
+                        {
+                            return false;
+                        }
+
+                        if (args.length != 2)
+                        {
+                            throw new CommandException();
+                        }
+                        Main.Singleton.RoundManager.SetMaxBorderSize(Float.parseFloat(args[1]));
+
+                        TheWalls.SendTheWallsMessage(player, ChatColor.GREEN, "Максимальный размер барьера установлен на " + args[1] + "!");
+
+                        return true;
+                    //endregion
+
+                    //region setMinBorderSize
+                    case "setMinBorderSize":
+                        if (!sender.hasPermission(String.valueOf(Permission.DEFAULT_PERMISSION)))
+                        {
+                            return false;
+                        }
+
+                        if (args.length != 2)
+                        {
+                            throw new CommandException();
+                        }
+                        Main.Singleton.RoundManager.SetMinBorderSize(Float.parseFloat(args[1]));
+
+                        TheWalls.SendTheWallsMessage(player, ChatColor.GREEN, "Минимальный размер барьера установлен на " + args[1] + "!");
+
+                        return true;
+                    //endregion
+
                     //region devMode
                     case "devMode":
                         if (!sender.hasPermission(String.valueOf(Permission.DEFAULT_PERMISSION)))
@@ -103,6 +139,21 @@ public class RoundCommand implements CommandExecutor {
                         Main.Singleton.RoundManager.DevMode = devMode;
 
                         TheWalls.SendTheWallsMessage(player, ChatColor.GREEN, "DevMode: " + devMode);
+                        return true;
+                    //endregion
+
+                    //region deadLighting
+                    case "deadLighting":
+                        if (!sender.hasPermission(String.valueOf(Permission.DEFAULT_PERMISSION)))
+                        {
+                            return false;
+                        }
+
+                        boolean deadLighting = !Main.Singleton.RoundManager.DeadLighting;
+
+                        Main.Singleton.RoundManager.DeadLighting = deadLighting;
+
+                        TheWalls.SendTheWallsMessage(player, ChatColor.GREEN, "DeadLighting: " + deadLighting);
                         return true;
                     //endregion
                 }

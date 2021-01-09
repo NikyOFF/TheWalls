@@ -9,8 +9,6 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.PortalCreateEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scoreboard.Team;
 import plugin.thewalls.Main;
 import plugin.thewalls.TheWallTeam;
@@ -65,35 +63,59 @@ public class RoundEvents implements Listener {
     @EventHandler
     public void EntityDamageEvent(EntityDamageEvent event)
     {
-        if (!Main.Singleton.RoundManager.Started)
+        if (!Main.Singleton.RoundManager.Started && !Main.Singleton.RoundManager.DevMode)
         {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void PlayerDeathEvent (PlayerDeathEvent event)
+    public void PlayerDeathEvent(PlayerDeathEvent event)
     {
-        if (!Main.Singleton.RoundManager.Started)
+        Main.Singleton.getServer().getConsoleSender().sendMessage("PlayerDeathEvent - on");
+
+        if (Main.Singleton.RoundManager.Started)
         {
+            Main.Singleton.getServer().getConsoleSender().sendMessage("PlayerDeathEvent - started");
+
             Player player = event.getEntity();
             String playerName = player.getName();
             Team team = player.getScoreboard().getEntryTeam(playerName);
 
             if (team != null)
             {
+                Main.Singleton.getServer().getConsoleSender().sendMessage("PlayerDeathEvent - team != null");
+
                 TheWallTeam theWallTeam = Main.Singleton.TeamManager.Get(team.getName());
 
                 if (theWallTeam != null && !theWallTeam.IsLost && theWallTeam.IsSpawned)
                 {
-                    if (Main.Singleton.RoundManager.DeadPlayers.get(playerName) == null)
+                    Main.Singleton.getServer().getConsoleSender().sendMessage("PlayerDeathEvent - theWallTeam != null, !theWallTeam.IsLost, theWallTeam.IsSpawned");
+
+                    if (!Main.Singleton.RoundManager.DeadPlayers.containsKey(playerName))
                     {
+                        if (Main.Singleton.RoundManager.DeadLighting)
+                        {
+                            Main.Singleton.getServer().getWorld("World").strikeLightning(player.getLocation());
+                        }
+
                         theWallTeam.LivePlayersCount--;
                         Main.Singleton.RoundManager.DeadPlayers.put(playerName, event.getDeathMessage());
                         player.setGameMode(GameMode.SPECTATOR);
+
+                        Main.Singleton.TeamManager.CheckTeams();
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void PortalCreateEvent(PortalCreateEvent event)
+    {
+        if (!Main.Singleton.RoundManager.DevMode)
+        {
+            event.setCancelled(true);
         }
     }
 }

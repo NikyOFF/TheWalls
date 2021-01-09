@@ -3,10 +3,25 @@ package plugin.thewalls;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class TheWalls {
+    public static String CorrectMinutesText(int min)
+    {
+        Configuration configuration = Main.Singleton.getConfig();
+
+        String text = configuration.getString("localization.minutes");
+
+        if (configuration.getString("localization.language") == "RU" && min < 5)
+        {
+            text = "минуты";
+        }
+
+        return min + " " + text;
+    }
+
     public static void SendConsoleTheWallsMessage(ChatColor color, String message)
     {
         Main.Singleton.getServer().getConsoleSender().sendMessage(color + "[TheWalls]: " + ChatColor.WHITE + message);

@@ -6,5 +6,8 @@ public enum RoundCommandActions {
     info,
     setEndTime,
     setFallTime,
+    setMaxBorderSize,
+    setMinBorderSize,
     devMode,
+    deadLighting,
 }
