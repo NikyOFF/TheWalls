@@ -1,0 +1,25 @@
+mapsSize: 0
+currentMap: null
+maps: {}
+localization:
+  limitBlockYPlaceError: Вы достигли предела!
+  portalCreateError: На данной карте нельзя создавать порталы!
+  teamSelectorItemName: Выбрать команду
+  teamSelectorItemDescription: Используйте этот предмет для выбора команды
+  teamGUIName: Команды
+  teamGUINotHaveSpawningPoint: Не имеет точки спавна!
+  teamGUINotHaveEntries: Не имеет участников!
+  soonGameMessage: Игра скоро начнётся!
+  startGameAlert: До начала игры
+  startGameMessage: Игра началась!
+  endGameWinMessage: Победила команда
+  endGameNoOneWinMessage: Никто не победил
+  stopGameMessage: Игра закончилась!
+  roundTimerBeforeWallsFallen: Время до падения стен
+  roundTimerBeforeEnd: Время до конца игры
+  wallsFallenTitle: Стены упали!
+  wallsFallenSubtitle: Попробуйте выжить...
+  defaultTimerText: Добро пожаловать на TheWalls!
+  roundAwakeTimerText: Время до начала игры
+  roundStartTimerText: Время до падения стен
+  roundWallsFallenTimerText: Время до конца игры

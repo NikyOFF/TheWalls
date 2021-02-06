@@ -1,0 +1,245 @@
+mapsSize: 1
+maps:
+  '0':
+    id: Void
+    mainWorld: world
+    barColor: PURPLE
+    roundAwakeTime: 5
+    maxRoundTime: 2
+    wallsFallenTime: 1
+    maxBlockPlaceY: 200
+    worldBorderMaxSize: 650.0
+    worldBorderMinSize: 1.0
+    canCreatePortal: false
+    spawnLocation:
+      ==: org.bukkit.Location
+      world: world
+      x: 1.1961548115116751
+      y: 244.0
+      z: 0.7827232831265097
+      pitch: 60.001686
+      yaw: -96.06017
+    worldBorderCanterLocation:
+      ==: org.bukkit.Location
+      world: world
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      pitch: 0.0
+      yaw: 0.0
+    teamsCount: 4
+    teams:
+      '0':
+        name: yellow
+        spawnPointLocation:
+          ==: org.bukkit.Location
+          world: world
+          x: -40.38162522231679
+          y: 63.0
+          z: -296.7356470838441
+          pitch: 5.7693176
+          yaw: 225.6132
+        color: GOLD
+        material: YELLOW_CONCRETE
+      '1':
+        name: blue
+        spawnPointLocation:
+          ==: org.bukkit.Location
+          world: world
+          x: 297.52997304099273
+          y: 63.0
+          z: -40.67611023654423
+          pitch: 5.199136
+          yaw: 312.8352
+        color: BLUE
+        material: BLUE_CONCRETE
+      '2':
+        name: red
+        spawnPointLocation:
+          ==: org.bukkit.Location
+          world: world
+          x: 41.68395082212112
+          y: 63.0
+          z: 298.1668384277444
+          pitch: 15.4616995
+          yaw: 51.323223
+        color: RED
+        material: RED_CONCRETE
+      '3':
+        name: green
+        spawnPointLocation:
+          ==: org.bukkit.Location
+          world: world
+          x: -296.55515268316617
+          y: 63.0
+          z: 41.638962548165395
+          pitch: 6.9104176
+          yaw: 143.67703
+        color: GREEN
+        material: GREEN_CONCRETE
+    wallsCount: 8
+    walls:
+      '0':
+        id: yellow0
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: -321.0
+          y: 63.0
+          z: -23.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: -17.0
+          y: 255.0
+          z: -17.0
+          pitch: 0.0
+          yaw: 0.0
+      '1':
+        id: yellow1
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: -23.0
+          y: 63.0
+          z: -322.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: -17.0
+          y: 255.0
+          z: -24.0
+          pitch: 0.0
+          yaw: 0.0
+      '2':
+        id: blue0
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: 17.0
+          y: 63.0
+          z: -321.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: 23.0
+          y: 255.0
+          z: -24.0
+          pitch: 0.0
+          yaw: 0.0
+      '3':
+        id: blue1
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: 17.0
+          y: 63.0
+          z: -23.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: 322.0
+          y: 255.0
+          z: -17.0
+          pitch: 0.0
+          yaw: 0.0
+      '4':
+        id: red0
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: 17.0
+          y: 63.0
+          z: 17.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: 321.0
+          y: 255.0
+          z: 23.0
+          pitch: 0.0
+          yaw: 0.0
+      '5':
+        id: red1
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: 17.0
+          y: 63.0
+          z: 24.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: 23.0
+          y: 255.0
+          z: 322.0
+          pitch: 0.0
+          yaw: 0.0
+      '6':
+        id: green0
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: -23.0
+          y: 63.0
+          z: 17.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: -17.0
+          y: 255.0
+          z: 321.0
+          pitch: 0.0
+          yaw: 0.0
+      '7':
+        id: green1
+        pos0:
+          ==: org.bukkit.Location
+          world: world
+          x: -322.0
+          y: 63.0
+          z: 17.0
+          pitch: 0.0
+          yaw: 0.0
+        pos1:
+          ==: org.bukkit.Location
+          world: world
+          x: -24.0
+          y: 255.0
+          z: 23.0
+          pitch: 0.0
+          yaw: 0.0
+localization:
+  limitBlockYPlaceError: Вы достигли предела!
+  portalCreateError: На данной карте нельзя создавать порталы!
+  teamSelectorItemName: Выбрать команду
+  teamSelectorItemDescription: Используйте этот предмет для выбора команды
+  teamGUIName: Команды
+  teamGUINotHaveSpawningPoint: Не имеет точки спавна!
+  teamGUINotHaveEntries: Не имеет участников!
+  soonGameMessage: Игра скоро начнётся!
+  startGameAlert: До начала игры
+  startGameMessage: Игра началась!
+  endGameWinMessage: Победила команда
+  endGameNoOneWinMessage: Никто не победил
+  stopGameMessage: Игра закончилась!
+  roundTimer: Время
+  roundTimerBeforeWallsFallen: Время до падения стен
+  roundTimerBeforeEnd: Время до конца игры
+  wallsFallenTitle: Стены упали!
+  wallsFallenSubtitle: Попробуйте выжить...
+currentMap: Void

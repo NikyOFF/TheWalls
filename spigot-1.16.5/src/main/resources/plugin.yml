@@ -1,0 +1,29 @@
+name: Thewalls
+version: ${project.version}
+main: com.nikyoff.thewalls.Main
+api-version: 1.16
+permissions:
+  TheWalls.setup:
+    description: setup game
+    default: op
+commands:
+  map:
+    description: (add|join|leave|list|remove|setSpawnPoint)
+    usage: /<command> [args]
+    permission: TheWalls.setup
+    permission-message: У вас нет прав на выполнение команды!
+  team:
+    description: (add|join|leave|list|remove|setSpawnPoint)
+    usage: /<command> [args]
+    permission: TheWalls.setup
+    permission-message: У вас нет прав на выполнение команды!
+  wall:
+    description: (add|save|remove|create|destroy|createAll|destroyAll)
+    usage: /<command> [args]
+    permission: TheWalls.setup
+    permission-message: У вас нет прав на выполнение команды!
+  round:
+    description: (start|stop|info|setEndTime|setFallTime|respawn)
+    usage: /<command> [args]
+    permission: TheWalls.setup
+    permission-message: У вас нет прав на выполнение команды!
