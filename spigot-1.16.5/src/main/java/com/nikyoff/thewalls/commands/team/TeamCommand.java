@@ -3,6 +3,8 @@ package com.nikyoff.thewalls.commands.team;
 import com.nikyoff.thewalls.Main;
 import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.items.TeamSelector;
+import com.nikyoff.thewalls.utils.Localization;
+import com.nikyoff.thewalls.utils.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,6 +25,7 @@ public class TeamCommand implements CommandExecutor {
                     Material material = Material.valueOf(args[3].toUpperCase());
 
                     Main.Singleton.TeamManager.Add(new Team(name, spawnPointLocation, color, material));
+                    Messages.SendMessage((Player) sender, ChatColor.GOLD, Localization.GetLocalizedString("teamCommandAdd"));
                     return true;
                 } else if (args.length == 4) {
                     String name = args[1];
@@ -30,11 +33,20 @@ public class TeamCommand implements CommandExecutor {
                     Material material = Material.valueOf(args[3].toUpperCase());
 
                     Main.Singleton.TeamManager.Add(new Team(name, null, color, material));
+                    Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("teamCommandAdd"));
+                    return true;
                 }
             } else if (args[0].equals(TeamCommandActions.remove.name())) {
-                if (args.length == 2 && sender instanceof Player) {
+                if (args.length == 2) {
                     String name = args[1];
                     Main.Singleton.TeamManager.Remove(name);
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GOLD, Localization.GetLocalizedString("teamCommandRemove"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("teamCommandRemove"));
+                    }
+
                     return true;
                 }
             } else if (args[0].equals(TeamCommandActions.setSpawnPoint.name())) {
@@ -47,6 +59,7 @@ public class TeamCommand implements CommandExecutor {
 
                         if (team != null) {
                             team.SpawnPointLocation = location;
+                            Messages.SendMessage((Player) sender, ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
                             return true;
                         }
                     } else if (args.length == 5) {
@@ -57,12 +70,11 @@ public class TeamCommand implements CommandExecutor {
 
                         if (team != null) {
                             team.SpawnPointLocation = location;
+                            Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
                             return true;
                         }
                     }
                 }
-
-
             } else if (args[0].equals(TeamCommandActions.book.name())) {
                 if (sender instanceof Player) {
                     TeamSelector.AddItem(((Player) sender).getPlayer());
@@ -99,7 +111,6 @@ public class TeamCommand implements CommandExecutor {
                 }
             }
         }
-
         return false;
     }
 }

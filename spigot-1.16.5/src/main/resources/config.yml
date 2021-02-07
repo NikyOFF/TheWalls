@@ -4,6 +4,7 @@ maps: {}
 localization:
   limitBlockYPlaceError: Вы достигли предела!
   portalCreateError: На данной карте нельзя создавать порталы!
+  respawnPlayer: был успешно воскрешён!
   teamSelectorItemName: Выбрать команду
   teamSelectorItemDescription: Используйте этот предмет для выбора команды
   teamGUIName: Команды
@@ -23,3 +24,26 @@ localization:
   roundAwakeTimerText: Время до начала игры
   roundStartTimerText: Время до падения стен
   roundWallsFallenTimerText: Время до конца игры
+  mapCommandAdd: Вы успешно добавили карту
+  mapCommandRemove: Вы успешно удалили карту
+  mapCommandSet: Вы успешно установили текущую карту
+  mapCommandSave: Все карты были успешно сохранены
+  mapCommandSetup: Текущая карта была настроена успешно
+  mapCommandSettingsBarColor: Цвет таймера успешно установлен
+  mapCommandSettingsSpawnLocation: Установлена локация точка лобби
+  mapCommandSettingsRoundAwakeTime: Установлено время запуска раунда
+  mapCommandSettingsMaxRoundTime: Установлено максимальное время раунда
+  mapCommandSettingsWallsFallenTime: Установлено время падения стен
+  mapCommandSettingsMaxBlockPlaceY: Установлена максимальная высота размещения блока по Y
+  mapCommandSettingsWorldBorderMaxSize: Установлен максимальный размер барьера
+  mapCommandSettingsWorldBorderMinSize: Установлен минимальный размер барьера
+  mapCommandSettingsWorldBorderCanterLocation: Установлен центр барьера
+  mapCommandSettingsCanCreatePortal: Возможность создания портала
+  teamCommandAdd: Команда была успешно добавлена!
+  teamCommandRemove: Команда была успешно удалена!
+  teamCommandSetSpawnPoint: Точка спавна команды была успешно установлена!
+  wallCommandAdd: Стена была успешно добавлена!
+  wallCommandRemove: Стена была успешно удалена!
+  wallCommandCreate: Стена была успешно создана!
+  wallCommandSave: Стена была успешно сохранена!
+  roundCommandDevMove: Режим разработчика

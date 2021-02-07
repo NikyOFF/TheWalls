@@ -9,7 +9,7 @@ maps:
     wallsFallenTime: 1
     maxBlockPlaceY: 200
     worldBorderMaxSize: 650.0
-    worldBorderMinSize: 1.0
+    worldBorderMinSize: 50.0
     canCreatePortal: false
     spawnLocation:
       ==: org.bukkit.Location
@@ -22,9 +22,9 @@ maps:
     worldBorderCanterLocation:
       ==: org.bukkit.Location
       world: world
-      x: 0.0
+      x: 0.5
       y: 0.0
-      z: 0.0
+      z: 0.5
       pitch: 0.0
       yaw: 0.0
     teamsCount: 4
@@ -226,6 +226,7 @@ maps:
 localization:
   limitBlockYPlaceError: Вы достигли предела!
   portalCreateError: На данной карте нельзя создавать порталы!
+  respawnPlayer: был успешно воскрешён!
   teamSelectorItemName: Выбрать команду
   teamSelectorItemDescription: Используйте этот предмет для выбора команды
   teamGUIName: Команды
@@ -237,9 +238,36 @@ localization:
   endGameWinMessage: Победила команда
   endGameNoOneWinMessage: Никто не победил
   stopGameMessage: Игра закончилась!
-  roundTimer: Время
   roundTimerBeforeWallsFallen: Время до падения стен
   roundTimerBeforeEnd: Время до конца игры
   wallsFallenTitle: Стены упали!
   wallsFallenSubtitle: Попробуйте выжить...
+  defaultTimerText: Добро пожаловать на TheWalls!
+  roundAwakeTimerText: Время до начала игры
+  roundStartTimerText: Время до падения стен
+  roundWallsFallenTimerText: Время до конца игры
+  mapCommandAdd: Успешно добавлена карта
+  mapCommandRemove: Успешно удалена карта
+  mapCommandSet: Успешно установлена текущая карта
+  mapCommandSave: Все карты были успешно сохранены
+  mapCommandSetup: Текущая карта была настроена успешно
+  mapCommandSettingsBarColor: Цвет таймера успешно установлен
+  mapCommandSettingsSpawnLocation: Установлена локация точка лобби
+  mapCommandSettingsRoundAwakeTime: Установлено время запуска раунда
+  mapCommandSettingsMaxRoundTime: Установлено максимальное время раунда
+  mapCommandSettingsWallsFallenTime: Установлено время падения стен
+  mapCommandSettingsMaxBlockPlaceY: Установлена максимальная высота размещения блока
+    по Y
+  mapCommandSettingsWorldBorderMaxSize: Установлен максимальный размер барьера
+  mapCommandSettingsWorldBorderMinSize: Установлен минимальный размер барьера
+  mapCommandSettingsWorldBorderCanterLocation: Установлен центр барьера
+  mapCommandSettingsCanCreatePortal: Возможность создания портала
+  teamCommandAdd: Команда была успешно добавлена!
+  teamCommandRemove: Команда была успешно удалена!
+  teamCommandSetSpawnPoint: Точка спавна команды была успешно установлена!
+  wallCommandAdd: Стена была успешно добавлена!
+  wallCommandRemove: Стена была успешно удалена!
+  wallCommandCreate: Стена была успешно создана!
+  wallCommandSave: Стена была успешно сохранена!
+  roundCommandDevMove: Режим разработчика
 currentMap: Void

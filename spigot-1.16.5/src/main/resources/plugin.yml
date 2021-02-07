@@ -8,22 +8,18 @@ permissions:
     default: op
 commands:
   map:
-    description: (add|join|leave|list|remove|setSpawnPoint)
-    usage: /<command> [args]
+    description: (add|remove|set|save|setup|settings)
+    usage: /<command> [add|remove|set|save|setup|settings]
     permission: TheWalls.setup
-    permission-message: У вас нет прав на выполнение команды!
   team:
-    description: (add|join|leave|list|remove|setSpawnPoint)
-    usage: /<command> [args]
+    description: (add|remove|setSpawnPoint|book|join|leave)
+    usage: /<command> [add|remove|setSpawnPoint|book|join|leave]
     permission: TheWalls.setup
-    permission-message: У вас нет прав на выполнение команды!
   wall:
-    description: (add|save|remove|create|destroy|createAll|destroyAll)
-    usage: /<command> [args]
+    description: (add|remove|create|save)
+    usage: /<command> [add|remove|create|save]
     permission: TheWalls.setup
-    permission-message: У вас нет прав на выполнение команды!
   round:
-    description: (start|stop|info|setEndTime|setFallTime|respawn)
-    usage: /<command> [args]
+    description: (start|stop|check|respawn|devMode|debugRound|debugMap|debugTeams|debugWalls)
+    usage: /<command> [start|stop|check|respawn|devMode|debugRound|debugMap|debugTeams|debugWalls]
     permission: TheWalls.setup
-    permission-message: У вас нет прав на выполнение команды!

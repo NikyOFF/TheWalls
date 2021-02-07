@@ -17,4 +17,8 @@ public class Adapter {
         LocalSession session = WorldEdit.getInstance().getSessionManager().get(player);
         return session.getSelection(player.getWorld());
     }
+
+    public static String LocationToString(Location location) {
+        return "x: " + location.getX() + ", y: " + location.getY() + ", z: " + location.getZ();
+    }
 }

@@ -1,6 +1,7 @@
 package com.nikyoff.thewalls.core;
 
 import com.nikyoff.thewalls.Main;
+import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -221,7 +222,7 @@ public class Team {
         Player player = Bukkit.getPlayer(entry);
 
         this.LivePlayersCount--;
-        this.Points -= 5;
+        this.Points -= 3;
         Main.Singleton.RoundManager.DeadPlayers.put(entry, deathMessage);
 
         if (player != null) {
@@ -271,6 +272,7 @@ public class Team {
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
         player.setFoodLevel(20);
         this.LivePlayersCount++;
+        Messages.BroadcastMessage(ChatColor.LIGHT_PURPLE, entry + " " + Localization.GetLocalizedString("respawnPlayer"));
         if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Respawned");
     }
 

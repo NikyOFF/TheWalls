@@ -4,6 +4,8 @@ import com.nikyoff.thewalls.Main;
 import com.nikyoff.thewalls.core.Map;
 import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.core.Wall;
+import com.nikyoff.thewalls.utils.Adapter;
+import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
 import com.sk89q.worldedit.regions.Region;
 import org.bukkit.Bukkit;
@@ -41,6 +43,11 @@ public class RoundCommand implements CommandExecutor {
                 }
             } else if (args[0].equals(RoundCommandActions.devMode.name())) {
                 Main.Singleton.RoundManager.DevMode = !Main.Singleton.RoundManager.DevMode;
+                if (sender instanceof Player) {
+                    Messages.SendMessage(((Player) sender), ChatColor.GOLD, Localization.GetLocalizedString("roundCommandDevMove") + " - " + Main.Singleton.RoundManager.DevMode);
+                } else {
+                    Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("roundCommandDevMove") + " - " + Main.Singleton.RoundManager.DevMode);
+                }
                 return true;
             } else if (args[0].equals(RoundCommandActions.debugRound.name())) {
                 Messages.SendMessage((Player) sender, ChatColor.GREEN, ChatColor.GOLD + "-----Round-----");
@@ -58,7 +65,7 @@ public class RoundCommand implements CommandExecutor {
                 Messages.SendMessage((Player) sender, ChatColor.GREEN, ChatColor.AQUA + "-----Current map-----");
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "Current map id: " + ChatColor.WHITE + currentMap.Id);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Current main world name]: " + ChatColor.WHITE + currentMap.MainWorld.getName());
-                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Spawn location]: " + ChatColor.WHITE + currentMap.SpawnLocation.toString());
+                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Spawn location]: " + ChatColor.WHITE + Adapter.LocationToString(currentMap.SpawnLocation));
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Can create portal]: " + ChatColor.WHITE + currentMap.CanCreatePortal);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Round awake time]: " + ChatColor.WHITE + currentMap.RoundAwakeTime);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Max round time]: " + ChatColor.WHITE + currentMap.MaxRoundTime);
@@ -66,7 +73,7 @@ public class RoundCommand implements CommandExecutor {
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Max block place by Y]: " + ChatColor.WHITE + currentMap.MaxBlockPlaceY);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[World border max size]: " + ChatColor.WHITE + currentMap.WorldBorderMaxSize);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[World border min size]: " + ChatColor.WHITE + currentMap.WorldBorderMinSize);
-                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[World border center]: " + ChatColor.WHITE + currentMap.WorldBorderCanterLocation.toString());
+                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[World border center]: " + ChatColor.WHITE + Adapter.LocationToString(currentMap.WorldBorderCanterLocation));
                 return true;
             } else if (args[0].equals(RoundCommandActions.debugTeams.name())) {
                 Map currentMap = Main.Singleton.MapManager.CurrentMap;
@@ -74,7 +81,7 @@ public class RoundCommand implements CommandExecutor {
 
                 for (Team _team : currentMap.Teams) {
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, "Team: " + _team.DisplayName);
-                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[SpawnPointLocation]: " + ChatColor.WHITE + _team.SpawnPointLocation.toString());
+                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[SpawnPointLocation]: " + ChatColor.WHITE + Adapter.LocationToString(_team.SpawnPointLocation));
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Color]: " + ChatColor.WHITE + _team.Color.toString());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Material]: " + ChatColor.WHITE + _team.Material.toString());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[ScoreboardTeam]: " + ChatColor.WHITE + _team.ScoreboardTeam.getName());
@@ -91,8 +98,8 @@ public class RoundCommand implements CommandExecutor {
 
                 for (Wall _wall : currentMap.Walls) {
                     Messages.SendMessage((Player) sender, ChatColor.GREEN, "Wall: " + _wall.Id);
-                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Pos0]: " + ChatColor.WHITE + _wall.Pos0.toString());
-                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Pos1]: " + ChatColor.WHITE + _wall.Pos0.toString());
+                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Pos0]: " + ChatColor.WHITE + Adapter.LocationToString(_wall.Pos0));
+                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Pos1]: " + ChatColor.WHITE + Adapter.LocationToString(_wall.Pos0));
                 }
                 return true;
             }

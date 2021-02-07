@@ -122,6 +122,12 @@ public class TeamManager {
             return;
         }
 
+        possibleTeam.ScoreboardTeam.getEntries().forEach(entry -> {
+            possibleTeam.ScoreboardTeam.removeEntry(entry);
+        });
+
+        possibleTeam.ScoreboardTeam.unregister();
+
         for (Team _team : Main.Singleton.MapManager.CurrentMap.Teams) {
             if (_team == possibleTeam) {
                 Main.Singleton.MapManager.CurrentMap.Teams.remove(possibleTeam);

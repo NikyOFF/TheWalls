@@ -5,10 +5,7 @@ import com.nikyoff.thewalls.core.*;
 import com.nikyoff.thewalls.items.TeamSelector;
 import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -215,12 +212,18 @@ public class RoundEvents implements Listener {
             Main.Singleton.WallManager.CreateAll(true);
             Main.Singleton.RoundManager.RoundStage = RoundStage.WallsFallen;
             Main.Singleton.RoundManager.SetCurrentTimer((currentMap.MaxRoundTime - currentMap.WallsFallenTime) * 60);
-        }, 20 * 60 * event.GetCurrentMap().WallsFallenTime);
+        }, 20 * 60 * currentMap.WallsFallenTime);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {
+            //border logic
+            WorldBorder worldBorder = currentMap.MainWorld.getWorldBorder();
+            worldBorder.setSize(currentMap.WorldBorderMinSize, (currentMap.MaxRoundTime - currentMap.WallsFallenTime - ((currentMap.MaxRoundTime - currentMap.WallsFallenTime) / 100 * 30)) * 60);
+        }, 20 * 60 * (currentMap.WallsFallenTime));
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {
             //end logic
             Main.Singleton.RoundManager.End(null);
-        }, 20 * 60 * event.GetCurrentMap().MaxRoundTime);
+        }, 20 * 60 * currentMap.MaxRoundTime);
     }
 
     @EventHandler
