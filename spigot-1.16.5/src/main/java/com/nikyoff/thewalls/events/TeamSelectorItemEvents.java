@@ -53,9 +53,6 @@ public class TeamSelectorItemEvents implements Listener {
     @EventHandler
     public void OnInventoryOpenEvent(InventoryOpenEvent event) {
         if (event.getPlayer() instanceof Player && event.getView().getTitle().equals(Localization.GetLocalizedString("teamGUIName"))) {
-            if (Main.Singleton.Debug) {
-                Messages.SendConsoleMessage(ChatColor.LIGHT_PURPLE, "OnInventoryCloseEvent, add " + event.getPlayer().getName() + " to viewers");
-            }
             this.Viewers.add(event.getPlayer());
         }
     }
@@ -63,9 +60,6 @@ public class TeamSelectorItemEvents implements Listener {
     @EventHandler
     public void OnInventoryCloseEvent(InventoryCloseEvent event) {
         if (event.getPlayer() instanceof Player && event.getView().getTitle().equals(Localization.GetLocalizedString("teamGUIName"))) {
-            if (Main.Singleton.Debug) {
-                Messages.SendConsoleMessage(ChatColor.LIGHT_PURPLE, "OnInventoryCloseEvent, remove " + event.getPlayer().getName() + " in viewers");
-            }
             this.Viewers.remove(event.getPlayer());
         }
     }
@@ -109,10 +103,5 @@ public class TeamSelectorItemEvents implements Listener {
         for (HumanEntity humanEntity : shadowViewers) {
             humanEntity.openInventory(Guis.GetTeamGui());
         }
-    }
-
-    @EventHandler
-    public void OnTeamLeaveEvent(TeamLeaveEvent event) {
-
     }
 }

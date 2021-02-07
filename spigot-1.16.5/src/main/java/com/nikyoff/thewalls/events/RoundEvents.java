@@ -83,7 +83,6 @@ public class RoundEvents implements Listener {
 
     @EventHandler
     public void OnPlayerDeathEvent(PlayerDeathEvent event) {
-        Messages.SendConsoleMessage(ChatColor.DARK_PURPLE, "PlayerDeathEvent - start");
         if (Main.Singleton.RoundManager.Started) {
             Player player = event.getEntity();
             String playerName = player.getName();
@@ -91,8 +90,6 @@ public class RoundEvents implements Listener {
             Team team = Main.Singleton.TeamManager.GetByEntry(playerName);
 
             if (Main.Singleton.TeamManager.GetByEntry(player.getName()) != null) {
-                Messages.BroadcastMessage(ChatColor.LIGHT_PURPLE, "kill");
-
                 team.Kill(playerName, event.getDeathMessage(), false);
 
                 if (killer != null) {
@@ -107,7 +104,6 @@ public class RoundEvents implements Listener {
                 Main.Singleton.TeamManager.CheckTeams();
             }
         }
-        Messages.SendConsoleMessage(ChatColor.DARK_PURPLE, "PlayerDeathEvent - end");
     }
 
     @EventHandler
@@ -163,7 +159,6 @@ public class RoundEvents implements Listener {
                 Messages.SendMessage(player, ChatColor.RED, Localization.GetLocalizedString("portalCreateError"));
             }
 
-
             event.setCancelled(true);
         }
     }
@@ -192,8 +187,7 @@ public class RoundEvents implements Listener {
         Map currentMap = event.GetCurrentMap();
         WorldBorder worldBorder = currentMap.MainWorld.getWorldBorder();
 
-        if (!Main.Singleton.RoundManager.Started)
-        {
+        if (!Main.Singleton.RoundManager.Started) {
             return;
         }
 
@@ -263,7 +257,6 @@ public class RoundEvents implements Listener {
         }
 
         Main.Singleton.TeamManager.ResetTeams();
-        //Main.Singleton.MapManager.CurrentMap.Setup();
         Messages.SendConsoleMessage(ChatColor.DARK_PURPLE, "RoundStopEvent - end");
     }
 }
