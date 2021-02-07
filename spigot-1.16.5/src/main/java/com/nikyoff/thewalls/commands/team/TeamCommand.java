@@ -5,9 +5,7 @@ import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.items.TeamSelector;
 import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -50,29 +48,37 @@ public class TeamCommand implements CommandExecutor {
                     return true;
                 }
             } else if (args[0].equals(TeamCommandActions.setSpawnPoint.name())) {
-                if (sender instanceof Player) {
-                    if (args.length == 2) {
-                        String name = args[1];
-                        Location location = ((Player) sender).getLocation();
+                if (args.length == 2 && sender instanceof Player) {
+                    String name = args[1];
+                    Location location = ((Player) sender).getLocation();
 
-                        Team team = Main.Singleton.TeamManager.Get(name);
+                    Team team = Main.Singleton.TeamManager.Get(name);
 
-                        if (team != null) {
-                            team.SpawnPointLocation = location;
-                            Messages.SendMessage((Player) sender, ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
-                            return true;
-                        }
-                    } else if (args.length == 5) {
-                        String name = args[1];
-                        Location location = new Location(((Player) sender).getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+                    if (team != null) {
+                        team.SpawnPointLocation = location;
+                        Messages.SendMessage((Player) sender, ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
+                        return true;
+                    }
+                } else if (args.length == 5 && sender instanceof Player) {
+                    String name = args[1];
+                    Location location = new Location(((Player) sender).getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
 
-                        Team team = Main.Singleton.TeamManager.Get(name);
+                    Team team = Main.Singleton.TeamManager.Get(name);
 
-                        if (team != null) {
-                            team.SpawnPointLocation = location;
-                            Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
-                            return true;
-                        }
+                    if (team != null) {
+                        team.SpawnPointLocation = location;
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
+                        return true;
+                    }
+                } else if (args.length == 6) {
+                    String name = args[1];
+                    World world = Bukkit.getWorld(args[2]);
+                    Team team = Main.Singleton.TeamManager.Get(name);
+
+                    if (team != null && world != null) {
+                        team.SpawnPointLocation = new Location(world, Double.parseDouble(args[3]), Double.parseDouble(args[4]), Double.parseDouble(args[5]));;
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("teamCommandSetSpawnPoint"));
+                        return true;
                     }
                 }
             } else if (args[0].equals(TeamCommandActions.book.name())) {

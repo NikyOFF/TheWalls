@@ -116,11 +116,13 @@ public class TeamManager {
             return;
         }
 
-        Team possibleTeam = Get(name);
+        Team possibleTeam = this.Get(name);
 
         if (possibleTeam == null) {
             return;
         }
+
+        Bukkit.getServer().getConsoleSender().sendMessage(possibleTeam.DisplayName);
 
         possibleTeam.ScoreboardTeam.getEntries().forEach(entry -> {
             possibleTeam.ScoreboardTeam.removeEntry(entry);
@@ -128,12 +130,9 @@ public class TeamManager {
 
         possibleTeam.ScoreboardTeam.unregister();
 
-        for (Team _team : Main.Singleton.MapManager.CurrentMap.Teams) {
-            if (_team == possibleTeam) {
-                Main.Singleton.MapManager.CurrentMap.Teams.remove(possibleTeam);
-            }
-        }
-        if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Added team");
+        Main.Singleton.MapManager.CurrentMap.Teams.removeIf(_team -> _team.Name.equals(name));
+
+        if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Removed team");
     }
 
     public void Join(String entry, Team team) {

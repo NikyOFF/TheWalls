@@ -24,9 +24,9 @@ localization:
   roundAwakeTimerText: Время до начала игры
   roundStartTimerText: Время до падения стен
   roundWallsFallenTimerText: Время до конца игры
-  mapCommandAdd: Вы успешно добавили карту
-  mapCommandRemove: Вы успешно удалили карту
-  mapCommandSet: Вы успешно установили текущую карту
+  mapCommandAdd: Успешно добавлена карта
+  mapCommandRemove: Успешно удалена карта
+  mapCommandSet: Успешно установлена текущая карта
   mapCommandSave: Все карты были успешно сохранены
   mapCommandSetup: Текущая карта была настроена успешно
   mapCommandSettingsBarColor: Цвет таймера успешно установлен

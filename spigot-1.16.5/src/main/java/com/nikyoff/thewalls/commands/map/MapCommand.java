@@ -67,7 +67,12 @@ public class MapCommand implements CommandExecutor {
                         new ArrayList<>())
                 );
 
-                Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandAdd") + " " + id);
+                if (sender instanceof Player) {
+                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandAdd") + " " + id);
+                } else {
+                    Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandAdd") + " " + id);
+                }
+
                 return true;
             }
 
@@ -75,36 +80,73 @@ public class MapCommand implements CommandExecutor {
             if (args.length == 2) {
                 String id = args[1];
                 Main.Singleton.MapManager.Remove(id);
-                Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandRemove") + " " + id);
+
+                if (sender instanceof Player) {
+                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandRemove") + " " + id);
+                } else {
+                    Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandRemove") + " " + id);
+                }
+
                 return true;
             }
         } else if (args[0].equals(MapCommandActions.set.name())) {
             if (args.length == 2) {
                 String id = args[1];
+                Map map = Main.Singleton.MapManager.Get(id);
+
+                if (map == null) {
+                    return false;
+                }
+
                 Main.Singleton.MapManager.SelectCurrentMap(id);
-                Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSet") + " " + id);
+
+                if (sender instanceof Player) {
+                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSet") + " " + id);
+                } else {
+                    Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSet") + " " + id);
+                }
+
                 return true;
             }
         } else if (args[0].equals(MapCommandActions.save.name()) && Main.Singleton.MapManager.CurrentMap != null) {
             Main.Singleton.MapManager.Save();
-            Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSave"));
+
+            if (sender instanceof Player) {
+                Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSave"));
+            } else {
+                Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSave"));
+            }
+
             return true;
         } else if (args[0].equals(MapCommandActions.setup.name()) && Main.Singleton.MapManager.CurrentMap != null) {
             Main.Singleton.MapManager.CurrentMap.Setup();
-            Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSetup"));
+
+            if (sender instanceof Player) {
+                Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSetup"));
+            } else {
+                Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSetup"));
+            }
+
             return true;
         } else if (args[0].equals(MapCommandActions.settings.name()) && Main.Singleton.MapManager.CurrentMap != null) {
             if (args[1].equals(MapCommandSettingsActions.barColor.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.BarColor = BarColor.valueOf(args[2].toUpperCase());
                     Main.Singleton.RoundManager.BossBarTimer.setColor(Main.Singleton.MapManager.CurrentMap.BarColor);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsBarColor"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsBarColor"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsBarColor"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.spawnLocation.name())) {
                 if (args.length == 2 && sender instanceof Player) {
                     Main.Singleton.MapManager.CurrentMap.SpawnLocation = ((Player) sender).getLocation();
                     Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsSpawnLocation"));
+
                     return true;
                 } else if (args.length == 5 && sender instanceof Player) {
                     Main.Singleton.MapManager.CurrentMap.SpawnLocation = new Location(((Player) sender).getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
@@ -115,44 +157,86 @@ public class MapCommand implements CommandExecutor {
 
                     if (world != null) {
                         Main.Singleton.MapManager.CurrentMap.SpawnLocation = new Location(world, Double.parseDouble(args[3]), Double.parseDouble(args[4]), Double.parseDouble(args[5]));
-                        Messages.BroadcastMessage(ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsSpawnLocation"));
+
+                        if (sender instanceof Player) {
+                            Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsSpawnLocation"));
+                        } else {
+                            Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsSpawnLocation"));
+                        }
+
                         return true;
                     }
                 }
             } else if (args[1].equals(MapCommandSettingsActions.roundAwakeTime.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.RoundAwakeTime = Integer.parseInt(args[2]);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsRoundAwakeTime"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsRoundAwakeTime"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsRoundAwakeTime"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.maxRoundTime.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.MaxRoundTime = Integer.parseInt(args[2]);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsMaxRoundTime"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsMaxRoundTime"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsMaxRoundTime"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.wallsFallenTime.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.WallsFallenTime = Integer.parseInt(args[2]);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWallsFallenTime"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWallsFallenTime"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsWallsFallenTime"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.maxBlockPlaceY.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.MaxBlockPlaceY = Integer.parseInt(args[2]);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsMaxBlockPlaceY"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsMaxBlockPlaceY"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsMaxBlockPlaceY"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.worldBorderMaxSize.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.WorldBorderMaxSize = Double.parseDouble(args[2]);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWorldBorderMaxSize"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWorldBorderMaxSize"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsWorldBorderMaxSize"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.worldBorderMinSize.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.WorldBorderMinSize = Double.parseDouble(args[2]);
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWorldBorderMinSize"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWorldBorderMinSize"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsWorldBorderMinSize"));
+                    }
+
                     return true;
                 }
             } else if (args[1].equals(MapCommandSettingsActions.worldBorderCanterLocation.name())) {
@@ -169,14 +253,26 @@ public class MapCommand implements CommandExecutor {
 
                     if (world != null) {
                         Main.Singleton.MapManager.CurrentMap.WorldBorderCanterLocation = new Location(world, Double.parseDouble(args[3]), 0, Double.parseDouble(args[4]));
-                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWorldBorderCanterLocation"));
+
+                        if (sender instanceof Player) {
+                            Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsWorldBorderCanterLocation"));
+                        } else {
+                            Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsWorldBorderCanterLocation"));
+                        }
+
                         return true;
                     }
                 }
             } else if (args[1].equals(MapCommandSettingsActions.canCreatePortal.name())) {
                 if (args.length == 3) {
                     Main.Singleton.MapManager.CurrentMap.CanCreatePortal = args[2].equals("true");
-                    Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsCanCreatePortal"));
+
+                    if (sender instanceof Player) {
+                        Messages.SendMessage((Player) sender, ChatColor.GREEN, Localization.GetLocalizedString("mapCommandSettingsCanCreatePortal"));
+                    } else {
+                        Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("mapCommandSettingsCanCreatePortal"));
+                    }
+
                     return true;
                 }
             }

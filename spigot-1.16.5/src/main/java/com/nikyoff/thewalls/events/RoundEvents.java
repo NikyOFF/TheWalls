@@ -190,6 +190,7 @@ public class RoundEvents implements Listener {
     @EventHandler
     public void OnRoundStartEvent(RoundStartEvent event) {
         Map currentMap = event.GetCurrentMap();
+        WorldBorder worldBorder = currentMap.MainWorld.getWorldBorder();
 
         if (!Main.Singleton.RoundManager.DevMode) {
             Main.Singleton.TeamManager.CheckTeams();
@@ -216,12 +217,13 @@ public class RoundEvents implements Listener {
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {
             //border logic
-            WorldBorder worldBorder = currentMap.MainWorld.getWorldBorder();
-            worldBorder.setSize(currentMap.WorldBorderMinSize, (currentMap.MaxRoundTime - currentMap.WallsFallenTime - ((currentMap.MaxRoundTime - currentMap.WallsFallenTime) / 100 * 30)) * 60);
+            double endTime = currentMap.MaxRoundTime - currentMap.WallsFallenTime;
+            worldBorder.setSize(currentMap.WorldBorderMinSize, (long) ((endTime - ((endTime / 100) * 30)) * 60));
         }, 20 * 60 * (currentMap.WallsFallenTime));
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {
             //end logic
+            worldBorder.setSize(currentMap.WorldBorderMaxSize);
             Main.Singleton.RoundManager.End(null);
         }, 20 * 60 * currentMap.MaxRoundTime);
     }

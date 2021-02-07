@@ -8,6 +8,8 @@ import com.sk89q.worldedit.regions.Region;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.math.BigDecimal;
+
 public class Adapter {
     public static Location Adapt(World world, BlockVector3 blockVector3) {
         return new Location(world, blockVector3.getBlockX(), blockVector3.getBlockY(), blockVector3.getBlockZ());
@@ -19,6 +21,6 @@ public class Adapter {
     }
 
     public static String LocationToString(Location location) {
-        return "x: " + location.getX() + ", y: " + location.getY() + ", z: " + location.getZ();
+        return "x: " + BigDecimal.valueOf(location.getX()).setScale(2, BigDecimal.ROUND_DOWN) + ", y: " + BigDecimal.valueOf(location.getY()).setScale(2, BigDecimal.ROUND_DOWN) + ", z: " + BigDecimal.valueOf(location.getZ()).setScale(2, BigDecimal.ROUND_DOWN);
     }
 }

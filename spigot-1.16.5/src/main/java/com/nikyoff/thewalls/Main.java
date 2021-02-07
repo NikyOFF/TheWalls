@@ -26,7 +26,6 @@ public final class Main extends JavaPlugin {
     public boolean Debug = true;
     public String SchematicsPath = getDataFolder().getAbsolutePath() + "/schematics";
 
-    /*Managers*/
     public WallManager WallManager;
     public TeamManager TeamManager;
     public RoundManager RoundManager;
@@ -54,23 +53,37 @@ public final class Main extends JavaPlugin {
     }
 
     private void initializeManagers() {
-        if (this.Debug) Messages.SendConsoleMessage(ChatColor.BLUE, "Trying initialize managers!");
+        if (this.Debug) {
+            Messages.SendConsoleMessage(ChatColor.BLUE, "Trying initialize managers!");
+        }
+
         this.RoundManager = new RoundManager();
         this.WallManager = new WallManager();
         this.TeamManager = new TeamManager();
         this.MapManager = new MapManager();
-        if (this.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Managers initialized!");
+
+        if (this.Debug) {
+            Messages.SendConsoleMessage(ChatColor.GREEN, "Managers initialized!");
+        }
     }
 
     private void initializeEvents() {
-        if (this.Debug) Messages.SendConsoleMessage(ChatColor.BLUE, "Trying initialize events!");
+        if (this.Debug) {
+            Messages.SendConsoleMessage(ChatColor.BLUE, "Trying initialize events!");
+        }
+
         getServer().getPluginManager().registerEvents(new RoundEvents(), this);
         getServer().getPluginManager().registerEvents(new TeamSelectorItemEvents(), this);
-        if (this.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Events initialized!");
+
+        if (this.Debug) {
+            Messages.SendConsoleMessage(ChatColor.GREEN, "Events initialized!");
+        }
     }
 
     private void initializeCommands() {
-        if (this.Debug) Messages.SendConsoleMessage(ChatColor.BLUE, "Trying initialize command!");
+        if (this.Debug) {
+            Messages.SendConsoleMessage(ChatColor.BLUE, "Trying initialize command!");
+        }
         PluginCommand mapCommand = this.getCommand("map");
         PluginCommand teamCommand = this.getCommand("team");
         PluginCommand wallCommand = this.getCommand("wall");
@@ -87,6 +100,8 @@ public final class Main extends JavaPlugin {
 
         roundCommand.setExecutor(new RoundCommand());
         roundCommand.setTabCompleter(new RoundCommandTabCompleter());
-        if (this.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Commands initialized!");
+        if (this.Debug) {
+            Messages.SendConsoleMessage(ChatColor.GREEN, "Commands initialized!");
+        }
     }
 }

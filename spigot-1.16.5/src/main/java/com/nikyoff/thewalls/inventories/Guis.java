@@ -30,6 +30,10 @@ public class Guis {
 
             if (Main.Singleton.MapManager.CurrentMap != null) {
                 for (Team team : Main.Singleton.MapManager.CurrentMap.Teams) {
+                    if (team.ScoreboardTeam == null) {
+                        continue;
+                    }
+
                     List<String> lore = new ArrayList<>();
                     Set<String> entries = team.ScoreboardTeam.getEntries();
 
