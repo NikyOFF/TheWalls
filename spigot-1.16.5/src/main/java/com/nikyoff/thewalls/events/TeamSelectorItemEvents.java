@@ -103,7 +103,10 @@ public class TeamSelectorItemEvents implements Listener {
             return;
         }
 
-        for (HumanEntity humanEntity : this.Viewers) {
+        HashSet<HumanEntity> shadowViewers = (HashSet<HumanEntity>) this.Viewers.clone();
+        this.Viewers.clear();
+
+        for (HumanEntity humanEntity : shadowViewers) {
             humanEntity.openInventory(Guis.GetTeamGui());
         }
     }

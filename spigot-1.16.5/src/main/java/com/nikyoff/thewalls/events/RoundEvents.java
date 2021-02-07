@@ -192,16 +192,16 @@ public class RoundEvents implements Listener {
         Map currentMap = event.GetCurrentMap();
         WorldBorder worldBorder = currentMap.MainWorld.getWorldBorder();
 
-        if (!Main.Singleton.RoundManager.DevMode) {
-            Main.Singleton.TeamManager.CheckTeams();
-        }
-
         if (!Main.Singleton.RoundManager.Started)
         {
             return;
         }
 
         Main.Singleton.TeamManager.SpawnTeams();
+
+        if (!Main.Singleton.RoundManager.DevMode) {
+            Main.Singleton.TeamManager.CheckTeams();
+        }
 
         Messages.BroadcastSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
         Messages.BroadcastMessage(ChatColor.GOLD, Localization.GetLocalizedString("startGameMessage"));
