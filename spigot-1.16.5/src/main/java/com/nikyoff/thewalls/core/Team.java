@@ -156,6 +156,11 @@ public class Team {
             return;
         }
 
+        if (this.PlayersCount >= Main.Singleton.RoundManager.MaxPlayersInTeam)
+        {
+            return;
+        }
+
         if (scoreboardTeam != null) {
             playerTeam = Main.Singleton.TeamManager.Get(scoreboardTeam.getName());
 
@@ -178,17 +183,16 @@ public class Team {
             return;
         }
 
-        Player player = Bukkit.getPlayer(entry);
         org.bukkit.scoreboard.Team scoreboardTeam = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getEntryTeam(entry);
 
-        if (scoreboardTeam == null || player == null) {
+        if (scoreboardTeam == null) {
             return;
         }
 
         this.ScoreboardTeam.removeEntry(entry);
         this.PlayersCount--;
 
-        TeamLeaveEvent teamLeaveEvent = new TeamLeaveEvent(player, this);
+        TeamLeaveEvent teamLeaveEvent = new TeamLeaveEvent(entry, this);
         Bukkit.getPluginManager().callEvent(teamLeaveEvent);
         if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Leaving");
     }
@@ -240,26 +244,40 @@ public class Team {
     public void Respawn(String entry) {
         if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.BLUE, "Trying to respawn entry: " + entry + ", in team:" + this.Name);
         if (Main.Singleton.MapManager.CurrentMap == null) {
+            Messages.SendConsoleMessage(ChatColor.BLUE, "Main.Singleton.MapManager.CurrentMap == null");
             return;
         }
 
         if (!Main.Singleton.RoundManager.Started) {
+            Messages.SendConsoleMessage(ChatColor.BLUE, "!Main.Singleton.RoundManager.Started");
             return;
         }
 
-        if (!Main.Singleton.RoundManager.DeadPlayers.containsKey(entry)) {
-            return;
-        }
+        Main.Singleton.RoundManager.DeadPlayers.remove(entry);
 
         Player player = Bukkit.getPlayer(entry);
         Player teammate = this.GetAnyLivePlayer();
+        Location location = null;
 
         if (player == null) {
+            Messages.SendConsoleMessage(ChatColor.BLUE, "player == null");
             return;
         }
 
         if (teammate == null) {
-            return;
+            if (Main.Singleton.RoundManager.RoundStage == RoundStage.Start)
+            {
+                location = this.SpawnPointLocation;
+            }
+            else
+            {
+                Messages.SendConsoleMessage(ChatColor.BLUE, "if teammate == null && Main.Singleton.RoundManager.RoundStage != RoundStage.Start");
+                return;
+            }
+        }
+        else
+        {
+            location = teammate.getLocation();
         }
 
         if (this.IsLost) {
@@ -268,7 +286,7 @@ public class Team {
 
         player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
-        player.teleport(player);
+        player.teleport(location);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
         player.setFoodLevel(20);
         this.LivePlayersCount++;
@@ -287,6 +305,12 @@ public class Team {
 
         scoreboardTeam.setColor(this.Color);
         this.ScoreboardTeam = scoreboardTeam;
+        this.IsLost = false;
+        this.IsSpawned = false;
+        this.PlayersCount = 0;
+        this.LivePlayersCount = 0;
+        this.Points = 0;
+
         if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Team initialized");
     }
 }

@@ -33,6 +33,11 @@ public class RoundEvents implements Listener {
 
     @EventHandler
     public void OnPlayerJoinEvent(PlayerJoinEvent event) {
+        if (Main.Singleton.MapManager.CurrentMap != null)
+        {
+            Main.Singleton.RoundManager.MaxPlayersInTeam = Bukkit.getOnlinePlayers().size() / Main.Singleton.MapManager.CurrentMap.Teams.size() + 1;
+        }
+
         Player player = event.getPlayer();
         String playerName = player.getName();
 
@@ -48,36 +53,50 @@ public class RoundEvents implements Listener {
 
             if (Main.Singleton.MapManager.CurrentMap != null && player.getGameMode() != GameMode.CREATIVE) {
                 player.teleport(Main.Singleton.MapManager.CurrentMap.SpawnLocation);
+                player.setGameMode(GameMode.ADVENTURE);
             }
         } else {
             if (this.OfflinePlayers.containsKey(playerName)) {
                 Bukkit.getScheduler().cancelTask(this.OfflinePlayers.get(playerName));
+            }
+
+            if (player.getGameMode() != GameMode.CREATIVE) {
+                player.setGameMode(GameMode.SPECTATOR);
             }
         }
     }
 
     @EventHandler
     public void OnPlayerQuitEvent(PlayerQuitEvent event) {
-        if (!Main.Singleton.RoundManager.Started) {
-            return;
-        }
-
         Player player = event.getPlayer();
         String playerName = player.getName();
-        Team team = Main.Singleton.TeamManager.GetByEntry(playerName);
-        long delay = (long) ((Main.Singleton.MapManager.CurrentMap.MaxRoundTime * 60) - Main.Singleton.RoundManager.CurrentTimer);
 
-        if (team != null) {
-            int taskId = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {
-                if (!Main.Singleton.RoundManager.Started) {
-                    return;
+        if (Main.Singleton.MapManager.CurrentMap != null)
+        {
+            Team team = Main.Singleton.TeamManager.GetByEntry(playerName);
+
+            Main.Singleton.RoundManager.MaxPlayersInTeam = Bukkit.getOnlinePlayers().size() / Main.Singleton.MapManager.CurrentMap.Teams.size() + 1;
+
+            if (Main.Singleton.RoundManager.Started) {
+                long delay = (long) ((Main.Singleton.MapManager.CurrentMap.MaxRoundTime * 60) - Main.Singleton.RoundManager.CurrentTimer);
+
+                if (team != null) {
+                    int taskId = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {
+                        if (!Main.Singleton.RoundManager.Started) {
+                            return;
+                        }
+
+                        team.Kill(playerName, "TheWalls", true);
+                        this.OfflinePlayers.remove(playerName);
+                    }, 20 * delay);
+
+                    OfflinePlayers.put(playerName, taskId);
                 }
-
-                team.Kill(playerName, "TheWalls", true);
-                this.OfflinePlayers.remove(playerName);
-            }, 20 * delay);
-
-            OfflinePlayers.put(playerName, taskId);
+            } else {
+                if (team != null) {
+                    team.Leave(playerName);
+                }
+            }
         }
     }
 
@@ -189,6 +208,15 @@ public class RoundEvents implements Listener {
 
         if (!Main.Singleton.RoundManager.Started) {
             return;
+        }
+
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (player.getGameMode() != GameMode.CREATIVE)
+            {
+                player.getInventory().clear();
+                player.setGameMode(GameMode.SPECTATOR);
+            }
         }
 
         Main.Singleton.TeamManager.SpawnTeams();

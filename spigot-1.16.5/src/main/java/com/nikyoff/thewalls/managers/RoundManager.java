@@ -24,6 +24,7 @@ public class RoundManager {
     public double CurrentTimer;
     public double Segment;
     public double CurrentSegment;
+    public int MaxPlayersInTeam = 0;
 
     public RoundManager() {
         this.BossBarTimer = Bukkit.createBossBar(this.GetTimerText(), BarColor.WHITE, BarStyle.SOLID);

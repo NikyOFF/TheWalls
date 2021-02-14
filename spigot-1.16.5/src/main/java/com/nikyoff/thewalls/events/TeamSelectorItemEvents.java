@@ -19,6 +19,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -31,6 +32,20 @@ public class TeamSelectorItemEvents implements Listener {
     public TeamSelectorItemEvents() {
         if (Main.Singleton.Debug) {
             Messages.SendConsoleMessage(ChatColor.LIGHT_PURPLE, "TeamSelectorItemEvents initialized");
+        }
+    }
+
+    @EventHandler
+    public void OnPlayerJoinEvent(PlayerJoinEvent event) {
+        if (this.Viewers == null || this.Viewers.isEmpty()) {
+            return;
+        }
+
+        HashSet<HumanEntity> shadowViewers = (HashSet<HumanEntity>) this.Viewers.clone();
+        this.Viewers.clear();
+
+        for (HumanEntity humanEntity : shadowViewers) {
+            humanEntity.openInventory(Guis.GetTeamGui());
         }
     }
 
@@ -78,7 +93,9 @@ public class TeamSelectorItemEvents implements Listener {
                 if (itemStack != null)
                 {
                     String itemDisplayName = Objects.requireNonNull(itemStack.getItemMeta()).getDisplayName();
-                    Team team = Main.Singleton.TeamManager.GetByDisplayName(itemDisplayName);
+                    String[] splitedItemDisplayName = itemDisplayName.split(" ");
+
+                    Team team = Main.Singleton.TeamManager.GetByDisplayName(splitedItemDisplayName[0]);
 
                     if (team != null)
                     {

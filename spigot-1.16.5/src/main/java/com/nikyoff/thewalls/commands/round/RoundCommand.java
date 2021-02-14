@@ -58,6 +58,7 @@ public class RoundCommand implements CommandExecutor {
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[CurrentTimer]: " + ChatColor.WHITE + Main.Singleton.RoundManager.CurrentTimer);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Segment]: " + ChatColor.WHITE + Main.Singleton.RoundManager.Segment);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[CurrentSegment]: " + ChatColor.WHITE + Main.Singleton.RoundManager.CurrentSegment);
+                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[MaxPlayersInTeam]: " + ChatColor.WHITE + Main.Singleton.RoundManager.MaxPlayersInTeam);
 
                 return true;
             } else if (args[0].equals(RoundCommandActions.debugMap.name())) {
@@ -78,11 +79,12 @@ public class RoundCommand implements CommandExecutor {
             } else if (args[0].equals(RoundCommandActions.debugTeams.name())) {
                 Map currentMap = Main.Singleton.MapManager.CurrentMap;
                 Messages.SendMessage((Player) sender, ChatColor.GREEN, ChatColor.GOLD + "-----Teams-----");
+                Messages.SendMessage((Player) sender, ChatColor.GREEN, ChatColor.GOLD + "" + Main.Singleton.TeamManager.LostTeamCount + "/" + Main.Singleton.MapManager.CurrentMap.Teams.size());
 
                 for (Team _team : currentMap.Teams) {
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, "Team: " + _team.DisplayName);
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[SpawnPointLocation]: " + ChatColor.WHITE + Adapter.LocationToString(_team.SpawnPointLocation));
-                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Color]: " + ChatColor.WHITE + _team.Color.toString());
+                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Color]: " + ChatColor.WHITE + " " + _team.Color.toString());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Material]: " + ChatColor.WHITE + _team.Material.toString());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[ScoreboardTeam]: " + ChatColor.WHITE + _team.ScoreboardTeam.getName());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[IsLost]: " + ChatColor.WHITE + _team.IsLost);

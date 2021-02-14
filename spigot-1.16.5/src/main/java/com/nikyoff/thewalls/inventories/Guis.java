@@ -55,7 +55,14 @@ public class Guis {
                     ItemMeta meta = item.getItemMeta();
 
                     meta.setLore(lore);
-                    meta.setDisplayName(team.DisplayName);
+                    String playerSize = " " + ChatColor.GRAY + team.PlayersCount + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + Main.Singleton.RoundManager.MaxPlayersInTeam;
+
+                    if (team.PlayersCount >= Main.Singleton.RoundManager.MaxPlayersInTeam)
+                    {
+                        playerSize = ChatColor.WHITE + " " + team.PlayersCount + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + Main.Singleton.RoundManager.MaxPlayersInTeam;
+                    }
+
+                    meta.setDisplayName(team.DisplayName + playerSize);
 
                     item.setItemMeta(meta);
                     gui.addItem(item);

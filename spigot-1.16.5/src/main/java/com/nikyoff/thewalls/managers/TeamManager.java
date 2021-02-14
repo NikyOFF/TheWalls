@@ -157,26 +157,24 @@ public class TeamManager {
     }
 
     public void Leave(String entry, Team team) {
-        Player player = Bukkit.getPlayer(entry);
         org.bukkit.scoreboard.Team scoreboardTeam = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getEntryTeam(entry);
 
-        if (scoreboardTeam == null || player == null || !team.ScoreboardTeam.getName().equals(scoreboardTeam.getName())) {
+        if (scoreboardTeam == null || !team.ScoreboardTeam.getName().equals(scoreboardTeam.getName())) {
             return;
         }
 
         team.ScoreboardTeam.removeEntry(entry);
         team.PlayersCount--;
 
-        TeamLeaveEvent teamLeaveEvent = new TeamLeaveEvent(player, team);
+        TeamLeaveEvent teamLeaveEvent = new TeamLeaveEvent(entry, team);
         Bukkit.getPluginManager().callEvent(teamLeaveEvent);
     }
 
     public void Leave(String entry) {
-        Player player = Bukkit.getPlayer(entry);
         org.bukkit.scoreboard.Team scoreboardTeam = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getEntryTeam(entry);
         Team team;
 
-        if (scoreboardTeam == null || player == null) {
+        if (scoreboardTeam == null) {
             return;
         }
         else {
@@ -190,7 +188,7 @@ public class TeamManager {
         team.ScoreboardTeam.removeEntry(entry);
         team.PlayersCount--;
 
-        TeamLeaveEvent teamLeaveEvent = new TeamLeaveEvent(player, team);
+        TeamLeaveEvent teamLeaveEvent = new TeamLeaveEvent(entry, team);
         Bukkit.getPluginManager().callEvent(teamLeaveEvent);
     }
 
@@ -230,7 +228,7 @@ public class TeamManager {
 
         Main.Singleton.MapManager.CurrentMap.Teams.forEach(Team::Check);
 
-        if (LostTeamCount == Main.Singleton.MapManager.CurrentMap.Teams.size() - 1) {
+        if (this.LostTeamCount == Main.Singleton.MapManager.CurrentMap.Teams.size() - 1) {
             for (Team team : Main.Singleton.MapManager.CurrentMap.Teams) {
                 if (!team.IsLost) {
                     Main.Singleton.RoundManager.End(team);

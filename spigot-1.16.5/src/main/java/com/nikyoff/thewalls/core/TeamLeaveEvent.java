@@ -1,21 +1,20 @@
 package com.nikyoff.thewalls.core;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class TeamLeaveEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
-    private final Player player;
+    private final String entry;
     private final Team team;
 
-    public TeamLeaveEvent(Player player, Team team) {
-        this.player = player;
+    public TeamLeaveEvent(String entry, Team team) {
+        this.entry = entry;
         this.team = team;
     }
 
-    public Player GetPlayer() {
-        return this.player;
+    public String GetEntry() {
+        return this.entry;
     }
 
     public Team GetTeam() {
