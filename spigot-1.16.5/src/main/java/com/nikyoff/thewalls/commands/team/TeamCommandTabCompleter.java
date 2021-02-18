@@ -1,12 +1,9 @@
 package com.nikyoff.thewalls.commands.team;
 
 import com.nikyoff.thewalls.Main;
-import com.nikyoff.thewalls.commands.map.MapCommandActions;
-import com.nikyoff.thewalls.core.Map;
 import com.nikyoff.thewalls.core.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

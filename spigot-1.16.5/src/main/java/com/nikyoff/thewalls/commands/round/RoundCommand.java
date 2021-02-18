@@ -7,10 +7,8 @@ import com.nikyoff.thewalls.core.Wall;
 import com.nikyoff.thewalls.utils.Adapter;
 import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
-import com.sk89q.worldedit.regions.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -58,7 +56,7 @@ public class RoundCommand implements CommandExecutor {
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[CurrentTimer]: " + ChatColor.WHITE + Main.Singleton.RoundManager.CurrentTimer);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Segment]: " + ChatColor.WHITE + Main.Singleton.RoundManager.Segment);
                 Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[CurrentSegment]: " + ChatColor.WHITE + Main.Singleton.RoundManager.CurrentSegment);
-                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[MaxPlayersInTeam]: " + ChatColor.WHITE + Main.Singleton.RoundManager.MaxPlayersInTeam);
+                Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[MaxPlayersInTeam]: " + ChatColor.WHITE + Main.Singleton.RoundManager.GetMaxPlayersInTeam());
 
                 return true;
             } else if (args[0].equals(RoundCommandActions.debugMap.name())) {
@@ -84,7 +82,7 @@ public class RoundCommand implements CommandExecutor {
                 for (Team _team : currentMap.Teams) {
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, "Team: " + _team.DisplayName);
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[SpawnPointLocation]: " + ChatColor.WHITE + Adapter.LocationToString(_team.SpawnPointLocation));
-                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Color]: " + ChatColor.WHITE + " " + _team.Color.toString());
+                    Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Color]: " + ChatColor.WHITE + " " + _team.Color.name());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[Material]: " + ChatColor.WHITE + _team.Material.toString());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[ScoreboardTeam]: " + ChatColor.WHITE + _team.ScoreboardTeam.getName());
                     Messages.SendMessage((Player) sender, ChatColor.DARK_BLUE, ChatColor.GRAY + "[IsLost]: " + ChatColor.WHITE + _team.IsLost);

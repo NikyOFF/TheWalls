@@ -4,7 +4,6 @@ import com.nikyoff.thewalls.Main;
 import com.nikyoff.thewalls.core.Map;
 import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.core.Wall;
-import com.nikyoff.thewalls.utils.Adapter;
 import com.nikyoff.thewalls.utils.Messages;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
@@ -165,6 +164,7 @@ public class MapManager {
             if (map.Id.equals(id)) {
                 this.CurrentMap = map;
                 this.Setup(this.CurrentMap);
+                Main.Singleton.TeamManager.ResetGui();
                 if (Main.Singleton.Debug) Messages.SendConsoleMessage(ChatColor.GREEN, "Current map: " + id);
                 return;
             }

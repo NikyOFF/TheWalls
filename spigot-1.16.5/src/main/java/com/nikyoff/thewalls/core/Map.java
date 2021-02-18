@@ -7,6 +7,7 @@ import org.bukkit.*;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

@@ -7,7 +7,6 @@ import com.nikyoff.thewalls.core.TeamLeaveEvent;
 import com.nikyoff.thewalls.inventories.Guis;
 import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -27,7 +26,6 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class TeamSelectorItemEvents implements Listener {
-    public HashSet<HumanEntity> Viewers = new HashSet<>();
 
     public TeamSelectorItemEvents() {
         if (Main.Singleton.Debug) {
@@ -37,16 +35,7 @@ public class TeamSelectorItemEvents implements Listener {
 
     @EventHandler
     public void OnPlayerJoinEvent(PlayerJoinEvent event) {
-        if (this.Viewers == null || this.Viewers.isEmpty()) {
-            return;
-        }
-
-        HashSet<HumanEntity> shadowViewers = (HashSet<HumanEntity>) this.Viewers.clone();
-        this.Viewers.clear();
-
-        for (HumanEntity humanEntity : shadowViewers) {
-            humanEntity.openInventory(Guis.GetTeamGui());
-        }
+        Main.Singleton.TeamManager.ResetGui();
     }
 
     @EventHandler
@@ -68,14 +57,14 @@ public class TeamSelectorItemEvents implements Listener {
     @EventHandler
     public void OnInventoryOpenEvent(InventoryOpenEvent event) {
         if (event.getPlayer() instanceof Player && event.getView().getTitle().equals(Localization.GetLocalizedString("teamGUIName"))) {
-            this.Viewers.add(event.getPlayer());
+            Main.Singleton.TeamManager.Viewers.add(event.getPlayer());
         }
     }
 
     @EventHandler
     public void OnInventoryCloseEvent(InventoryCloseEvent event) {
         if (event.getPlayer() instanceof Player && event.getView().getTitle().equals(Localization.GetLocalizedString("teamGUIName"))) {
-            this.Viewers.remove(event.getPlayer());
+            Main.Singleton.TeamManager.Viewers.remove(event.getPlayer());
         }
     }
 
@@ -93,13 +82,21 @@ public class TeamSelectorItemEvents implements Listener {
                 if (itemStack != null)
                 {
                     String itemDisplayName = Objects.requireNonNull(itemStack.getItemMeta()).getDisplayName();
-                    String[] splitedItemDisplayName = itemDisplayName.split(" ");
 
-                    Team team = Main.Singleton.TeamManager.GetByDisplayName(splitedItemDisplayName[0]);
-
-                    if (team != null)
+                    if (itemDisplayName.equals(ChatColor.RED + Localization.GetLocalizedString("teamGUILeave")))
                     {
-                        team.Join(player.getName());
+                        Main.Singleton.TeamManager.Leave(player.getName());
+                    }
+                    else
+                    {
+                        String[] splitedItemDisplayName = itemDisplayName.split(" ");
+
+                        Team team = Main.Singleton.TeamManager.GetByDisplayName(splitedItemDisplayName[0]);
+
+                        if (team != null)
+                        {
+                            team.Join(player.getName());
+                        }
                     }
                 }
             }
@@ -110,15 +107,11 @@ public class TeamSelectorItemEvents implements Listener {
 
     @EventHandler
     public void OnTeamJoinEvent(TeamJoinEvent event) {
-        if (this.Viewers == null || this.Viewers.isEmpty()) {
-            return;
-        }
+        Main.Singleton.TeamManager.ResetGui();
+    }
 
-        HashSet<HumanEntity> shadowViewers = (HashSet<HumanEntity>) this.Viewers.clone();
-        this.Viewers.clear();
-
-        for (HumanEntity humanEntity : shadowViewers) {
-            humanEntity.openInventory(Guis.GetTeamGui());
-        }
+    @EventHandler
+    public void OnTeamLeaveEvent(TeamLeaveEvent event) {
+        Main.Singleton.TeamManager.ResetGui();
     }
 }

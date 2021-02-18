@@ -35,7 +35,7 @@ public class RoundEvents implements Listener {
     public void OnPlayerJoinEvent(PlayerJoinEvent event) {
         if (Main.Singleton.MapManager.CurrentMap != null)
         {
-            Main.Singleton.RoundManager.MaxPlayersInTeam = Bukkit.getOnlinePlayers().size() / Main.Singleton.MapManager.CurrentMap.Teams.size() + 1;
+            Main.Singleton.RoundManager.SetMaxPlayersInTeam();
         }
 
         Player player = event.getPlayer();
@@ -75,10 +75,11 @@ public class RoundEvents implements Listener {
         {
             Team team = Main.Singleton.TeamManager.GetByEntry(playerName);
 
-            Main.Singleton.RoundManager.MaxPlayersInTeam = Bukkit.getOnlinePlayers().size() / Main.Singleton.MapManager.CurrentMap.Teams.size() + 1;
+            Main.Singleton.RoundManager.SetMaxPlayersInTeam();
 
             if (Main.Singleton.RoundManager.Started) {
-                long delay = (long) ((Main.Singleton.MapManager.CurrentMap.MaxRoundTime * 60) - Main.Singleton.RoundManager.CurrentTimer);
+                //long delay = (long) ((Main.Singleton.MapManager.CurrentMap.MaxRoundTime * 60) - Main.Singleton.RoundManager.CurrentTimer);
+                long delay = 60;
 
                 if (team != null) {
                     int taskId = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.Singleton, () -> {

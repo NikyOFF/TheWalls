@@ -1,8 +1,6 @@
 package com.nikyoff.thewalls.commands.wall;
 
 import com.nikyoff.thewalls.Main;
-import com.nikyoff.thewalls.commands.team.TeamCommandActions;
-import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.core.Wall;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

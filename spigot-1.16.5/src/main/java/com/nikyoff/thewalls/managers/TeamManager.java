@@ -4,15 +4,32 @@ import com.nikyoff.thewalls.Main;
 import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.core.TeamJoinEvent;
 import com.nikyoff.thewalls.core.TeamLeaveEvent;
+import com.nikyoff.thewalls.inventories.Guis;
 import com.nikyoff.thewalls.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 public class TeamManager {
     public int LostTeamCount;
+    public HashSet<HumanEntity> Viewers = new HashSet<>();
+
+    public void ResetGui() {
+        if (this.Viewers == null || this.Viewers.isEmpty()) {
+            return;
+        }
+
+        HashSet<HumanEntity> shadowViewers = (HashSet<HumanEntity>) Main.Singleton.TeamManager.Viewers.clone();
+        this.Viewers.clear();
+
+        for (HumanEntity humanEntity : shadowViewers) {
+            humanEntity.openInventory(Guis.GetTeamGui());
+        }
+    }
 
     public Team Get(Team team) {
         if (Main.Singleton.MapManager.CurrentMap == null) {
@@ -146,7 +163,7 @@ public class TeamManager {
 
         if (scoreboardTeam != null) {
             playerTeam = this.Get(scoreboardTeam.getName());
-            Leave(entry, playerTeam);
+            this.Leave(entry, playerTeam);
         }
 
         team.ScoreboardTeam.addEntry(entry);

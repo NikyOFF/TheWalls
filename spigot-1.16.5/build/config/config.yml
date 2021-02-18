@@ -232,6 +232,7 @@ localization:
   teamGUIName: Команды
   teamGUINotHaveSpawningPoint: Не имеет точки спавна!
   teamGUINotHaveEntries: Не имеет участников!
+  teamGUILeave: Выйти из команды
   soonGameMessage: Игра скоро начнётся!
   startGameAlert: До начала игры
   startGameMessage: Игра началась!
@@ -256,8 +257,7 @@ localization:
   mapCommandSettingsRoundAwakeTime: Установлено время запуска раунда
   mapCommandSettingsMaxRoundTime: Установлено максимальное время раунда
   mapCommandSettingsWallsFallenTime: Установлено время падения стен
-  mapCommandSettingsMaxBlockPlaceY: Установлена максимальная высота размещения блока
-    по Y
+  mapCommandSettingsMaxBlockPlaceY: Установлена максимальная высота размещения блока по Y
   mapCommandSettingsWorldBorderMaxSize: Установлен максимальный размер барьера
   mapCommandSettingsWorldBorderMinSize: Установлен минимальный размер барьера
   mapCommandSettingsWorldBorderCanterLocation: Установлен центр барьера

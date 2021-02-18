@@ -2,7 +2,6 @@ package com.nikyoff.thewalls.core;
 
 import com.boydti.fawe.util.EditSessionBuilder;
 import com.nikyoff.thewalls.Main;
-import com.nikyoff.thewalls.utils.Localization;
 import com.nikyoff.thewalls.utils.Messages;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;

@@ -3,8 +3,10 @@ package com.nikyoff.thewalls.inventories;
 import com.nikyoff.thewalls.Main;
 import com.nikyoff.thewalls.core.Team;
 import com.nikyoff.thewalls.utils.Localization;
+import jdk.vm.ci.meta.Local;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -21,8 +23,13 @@ public class Guis {
             if (Main.Singleton.MapManager.CurrentMap != null) {
                 size *= Math.ceil((double) Main.Singleton.MapManager.CurrentMap.Teams.size() / 9);
 
-                if (size < 9) {
+                if (size <= 9) {
                     size = 9;
+                }
+
+                if (size == Main.Singleton.MapManager.CurrentMap.Teams.size())
+                {
+                    size += 9;
                 }
             }
 
@@ -55,11 +62,12 @@ public class Guis {
                     ItemMeta meta = item.getItemMeta();
 
                     meta.setLore(lore);
-                    String playerSize = " " + ChatColor.GRAY + team.PlayersCount + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + Main.Singleton.RoundManager.MaxPlayersInTeam;
+                    int maxPlayersInTeam = Main.Singleton.RoundManager.GetMaxPlayersInTeam();
+                    String playerSize = " " + ChatColor.GRAY + team.PlayersCount + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + maxPlayersInTeam;
 
-                    if (team.PlayersCount >= Main.Singleton.RoundManager.MaxPlayersInTeam)
+                    if (team.PlayersCount >= maxPlayersInTeam)
                     {
-                        playerSize = ChatColor.WHITE + " " + team.PlayersCount + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + Main.Singleton.RoundManager.MaxPlayersInTeam;
+                        playerSize = ChatColor.WHITE + " " + team.PlayersCount + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + maxPlayersInTeam;
                     }
 
                     meta.setDisplayName(team.DisplayName + playerSize);
@@ -67,6 +75,12 @@ public class Guis {
                     item.setItemMeta(meta);
                     gui.addItem(item);
                 }
+
+                ItemStack item = new ItemStack(Material.BARRIER);
+                ItemMeta meta = item.getItemMeta();
+                meta.setDisplayName(ChatColor.RED + Localization.GetLocalizedString("teamGUILeave"));
+                item.setItemMeta(meta);
+                gui.addItem(item);
             }
 
             return gui;

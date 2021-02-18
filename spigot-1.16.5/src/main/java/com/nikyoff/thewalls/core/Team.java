@@ -156,7 +156,7 @@ public class Team {
             return;
         }
 
-        if (this.PlayersCount >= Main.Singleton.RoundManager.MaxPlayersInTeam)
+        if (this.PlayersCount >= Main.Singleton.RoundManager.GetMaxPlayersInTeam())
         {
             return;
         }
@@ -201,7 +201,7 @@ public class Team {
         for (String entry : this.ScoreboardTeam.getEntries()) {
             Player player = Bukkit.getPlayer(entry);
 
-            if (!Main.Singleton.RoundManager.DeadPlayers.containsKey(entry)) {
+            if (player != null && !Main.Singleton.RoundManager.DeadPlayers.containsKey(entry)) {
                 return player;
             }
         }
@@ -281,6 +281,7 @@ public class Team {
         }
 
         if (this.IsLost) {
+            this.IsLost = false;
             Main.Singleton.TeamManager.LostTeamCount--;
         }
 

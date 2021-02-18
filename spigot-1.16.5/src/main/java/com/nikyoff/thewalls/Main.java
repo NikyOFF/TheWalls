@@ -43,8 +43,8 @@ public final class Main extends JavaPlugin {
         this.saveDefaultConfig();
 
         this.initializeManagers();
-        this.initializeEvents();
         this.initializeCommands();
+        this.initializeEvents();
     }
 
     @Override

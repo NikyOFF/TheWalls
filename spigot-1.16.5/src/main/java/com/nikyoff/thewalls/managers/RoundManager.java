@@ -24,7 +24,8 @@ public class RoundManager {
     public double CurrentTimer;
     public double Segment;
     public double CurrentSegment;
-    public int MaxPlayersInTeam = 0;
+
+    private int maxPlayersInTeam = 0;
 
     public RoundManager() {
         this.BossBarTimer = Bukkit.createBossBar(this.GetTimerText(), BarColor.WHITE, BarStyle.SOLID);
@@ -33,6 +34,20 @@ public class RoundManager {
         {
             this.BossBarTimer.addPlayer(player);
         }
+    }
+
+    public int GetMaxPlayersInTeam() {
+        return  this.maxPlayersInTeam;
+    }
+
+    public void SetMaxPlayersInTeam(int maxPlayersInTeam) {
+        this.maxPlayersInTeam = maxPlayersInTeam;
+        Main.Singleton.TeamManager.ResetGui();
+    }
+
+    public void SetMaxPlayersInTeam() {
+        this.maxPlayersInTeam = Bukkit.getOnlinePlayers().size() / Main.Singleton.MapManager.CurrentMap.Teams.size() + 1;
+        Main.Singleton.TeamManager.ResetGui();
     }
 
     public void SetCurrentTimer(double timer) {
